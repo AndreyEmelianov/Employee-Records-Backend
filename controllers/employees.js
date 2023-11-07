@@ -50,20 +50,18 @@ const addEmployee = async (req, res) => {
 const editEmployee = async (req, res) => {
   try {
     const data = req.body;
-    const { id } = req.params;
+    const id = data.id;
 
     await prisma.employee.update({
       where: {
         id,
       },
-      data: {
-        data,
-      },
+      data,
     });
 
     return res.status(204).json('success');
   } catch (err) {
-    return res.status(400).json({ message: 'не удалось отредактировать сотрудника' });
+    return res.status(500).json({ message: 'не удалось отредактировать сотрудника' });
   }
 };
 
